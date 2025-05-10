@@ -14,18 +14,18 @@ do
 done
 
 # Verify the correct toolchain is available
-if [ ! -f "toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu" ]; then
-  mkdir -p toolchains
+if [ ! -f "/opt/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu" ]; then
+  mkdir -p /opt/toolchains
   wget https://releases.linaro.org/components/toolchain/binaries/6.3-2017.05/aarch64-linux-gnu/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu.tar.xz
   verify_action
-  tar Jxvf gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu.tar.xz -C toolchains/
+  tar Jxvf gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu.tar.xz -C /opt/toolchains/
   rm gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu.tar.xz
 fi
 
 # Setup the necessary exports
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
-export PATH=toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/:$PATH
+export PATH=/opt/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/:$PATH
 
 # Image creation
 DISK="ArkOS_RGB10.img"

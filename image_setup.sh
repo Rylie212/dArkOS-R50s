@@ -2,16 +2,6 @@
 
 echo -e "Setup the Image file...\n\n"
 sleep 10
-# Ensure some build tools are installed and ready
-sudo apt -y update
-for NEEDED_TOOL in bc build-essential debootstrap eatmydata gcc lib32stdc++6 libc6-i386 libncurses5-dev libssl-dev lzop python-is-python3  qemu-user-static zlib1g:i386
-do
-  dpkg -s "$NEEDED_TOOL" &>/dev/null
-  if [[ $? != "0" ]]; then
-    sudo apt -y install ${NEEDED_TOOL}
-    verify_action
-  fi
-done
 
 # Verify the correct toolchain is available
 if [ ! -f "/opt/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu" ]; then

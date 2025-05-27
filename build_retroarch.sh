@@ -97,7 +97,7 @@ sudo cp retroarch32/scripts/retroarch32 Arkbuild/usr/local/bin/
 sudo cp retroarch32/scripts/retroarch32.sh Arkbuild/opt/cmds
 sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/cmds/*
-sudo chmod 777 Arkbuild/usr/local/bin/retroarch
+sudo chmod 777 Arkbuild/usr/local/bin/retroarch32
 sudo chmod 777 Arkbuild/opt/retroarch/bin/*
 # Add cores requested from retroarch_cores32
 CORE_REPO="master"

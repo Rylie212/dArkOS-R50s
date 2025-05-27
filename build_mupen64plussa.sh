@@ -9,9 +9,9 @@ sudo chroot Arkbuild/ bash -c "cd /home/ark &&
 sudo mkdir -p Arkbuild/opt/mupen64plus
 sudo mkdir -p Arkbuild/home/ark/.config/mupen64plus
 sudo cp -a Arkbuild/home/ark/rk3326_core_builds/mupen64plussa-64/* Arkbuild/opt/mupen64plus/
-sudo cp -a mupen64plus/configs/rgb10/mupen64plus.cfg Arkbuild/home/ark/.config/mupen64Plus/
+sudo cp -a mupen64plus/configs/rgb10/mupen64plus.cfg Arkbuild/home/ark/.config/mupen64plus/
 sudo rm -f Arkbuild/opt/mupen64plus/*.gz
-sudo cp -a mupen64plus/InputAutoCfg.ini Arkbuild/opt/mupen64Plus/
+sudo cp -a mupen64plus/InputAutoCfg.ini Arkbuild/opt/mupen64plus/
 sudo cp mupen64plus/scripts/n64.sh Arkbuild/usr/local/bin/
 sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark/.config/"
 sudo chroot Arkbuild/ bash -c "chown -R ark:ark /opt/"

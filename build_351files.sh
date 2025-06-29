@@ -13,7 +13,7 @@ call_chroot "cd /home/ark &&
   strip 351Files* &&
   mkdir -p /opt/351Files &&
   cp 351Files* /opt/351Files/ &&
-  chmod 777 /opt/351Files/351Files &&
+  chmod 777 /opt/351Files/351Files* &&
   cp -R res/ /opt/351Files/
   "
 sudo rm -rf Arkbuild/home/ark/351Files

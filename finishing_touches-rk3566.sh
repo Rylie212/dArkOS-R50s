@@ -24,7 +24,8 @@ if [[ "$UNIT" == *"353"* ]] || [[ "$UNIT" == *"503"* ]]; then
   NAME="rg${UNIT}"
 fi
 echo "$NAME" | sudo tee Arkbuild/etc/hostname
-sudo sed -i "/localhost/s//localhost ${NAME}/" Arkbuild/etc/hosts
+echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hosts
+#sudo sed -i "0,/localhost/s//localhost ${NAME}/1" Arkbuild/etc/hosts
 
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
 sudo cp audio/.asoundrc.${CHIPSET} Arkbuild/home/ark/.asoundrc

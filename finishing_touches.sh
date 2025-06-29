@@ -37,7 +37,8 @@ sudo chroot Arkbuild/ chown ark:ark /home/ark/.bashrc
 
 # Set the name in the hostname and add it to the hosts file
 echo "rgb10" | sudo tee Arkbuild/etc/hostname
-sudo sed -i '/localhost/s//localhost rgb10/' Arkbuild/etc/hosts
+echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hosts
+#sudo sed -i '0,/localhost/s//localhost rgb10/' Arkbuild/etc/hosts
 
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
 sudo cp audio/.asoundrc* Arkbuild/home/ark/

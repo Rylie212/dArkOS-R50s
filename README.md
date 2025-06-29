@@ -14,3 +14,7 @@ Debian based operating system for select RK3326 and RK3566 based portable gaming
                     You can verify this by checking if a `/etc/sudoers.d/$USER` file exists and contains `$USER ALL=(ALL) NOPASSWD: ALL` in it.
      
 Now you should be able to just run make <device> to build for a supported device.  Example: `make rg353m`
+
+**Notes**
+- To build on a different release of Debian, change the DEBIAN_CODE_NAME export in the Makefile.  Other debian code names can be found at https://www.debian.org/releases/
+

@@ -23,7 +23,9 @@ libgtk-3-0
 liblzma5
 libmad0
 libmpeg2-4
+libogg0
 libopenal1
+libpng
 libsdl2-2.0-0
 libsdl2-dev
 libsdl2-image-2.0-0
@@ -36,6 +38,8 @@ libtheora0
 libtool
 libtool-bin
 libudev1
+libvorbisidec1
+libvpx7
 libxkbcommon0
 mbrola
 mbrola-us1

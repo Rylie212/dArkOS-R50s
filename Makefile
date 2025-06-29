@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+export DEBIAN_CODE_NAME := bookworm
+
 all:
 	@echo "Please specify a valid build target: make rgb10 or make rg353m"
 

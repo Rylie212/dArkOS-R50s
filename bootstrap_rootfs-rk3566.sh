@@ -29,7 +29,7 @@ sudo /usr/sbin/update-ccache-symlinks
 
 
 # Bootstrap base system
-sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign bookworm Arkbuild http://deb.debian.org/debian/
+sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign ${DEBIAN_CODE_NAME} Arkbuild http://deb.debian.org/debian/
 sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
 sudo chroot Arkbuild/ apt-get -y install ccache eatmydata
 sudo chroot Arkbuild/ eatmydata /debootstrap/debootstrap --second-stage

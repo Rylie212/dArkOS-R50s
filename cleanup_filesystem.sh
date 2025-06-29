@@ -51,6 +51,7 @@ call_chroot "apt-get remove -y autotools-dev \
   libvlc-dev \
   libvlccore-dev \
   libvorbis-dev \
+  libvorbisidec-dev \
   libvpx-dev \
   libx11-dev \
   libx11-xcb1 \

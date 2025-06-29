@@ -55,7 +55,7 @@ function setup_ark_user() {
 function setup_arkbuild32() {
   if [ ! -d Arkbuild32 ]; then
     # Bootstrap base system
-    sudo debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=armhf --foreign bookworm Arkbuild32 http://deb.debian.org/debian/
+    sudo debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=armhf --foreign ${DEBIAN_CODE_NAME} Arkbuild32 http://deb.debian.org/debian/
     sudo cp /usr/bin/qemu-arm-static Arkbuild32/usr/bin/
     sudo chroot Arkbuild32/ apt-get -y install eatmydata
     sudo chroot Arkbuild32/ eatmydata /debootstrap/debootstrap --second-stage

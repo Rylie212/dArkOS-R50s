@@ -15,6 +15,7 @@ libfreetype6-dev
 libnl-3-dev
 libnl-genl-3-dev
 libnl-route-3-dev
+libogg-dev
 libopenal-dev
 libpng-dev
 libsdl2-image-dev
@@ -24,7 +25,7 @@ libstdc++-12-dev
 libsoxr-dev
 libvlc-dev
 libvlccore-dev
+libvorbisidec-dev
 libvpx-dev
 libzip-dev
 rapidjson-dev
-

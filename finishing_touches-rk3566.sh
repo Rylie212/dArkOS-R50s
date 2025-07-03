@@ -33,10 +33,11 @@ sudo cp audio/.asoundrcbak.${CHIPSET} Arkbuild/home/ark/.asoundrcbak
 sudo cp audio/.asoundrcbt.${CHIPSET} Arkbuild/home/ark/.asoundrcbt
 sudo chown ark:ark Arkbuild/home/ark/.asoundrc*
 
-# Sleep script
+# Sleep script and set default SuspendState to freeze
 sudo mkdir -p Arkbuild/usr/lib/systemd/system-sleep
 sudo cp scripts/sleep.${CHIPSET} Arkbuild/usr/lib/systemd/system-sleep/sleep
 sudo chmod 777 Arkbuild/usr/lib/systemd/system-sleep/sleep
+sudo sed -i "/SuspendState\=/c\SuspendState\=freeze" Arkbuild/etc/systemd/sleep.conf
 
 # Set performance governor to ondemand on boot
 sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/perfnorm quiet &\") | crontab -"

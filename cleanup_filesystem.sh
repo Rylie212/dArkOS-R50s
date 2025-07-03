@@ -6,7 +6,7 @@ call_chroot "rm -rf /home/ark/EmulationStation-fcamod"
 call_chroot "rm -rf /home/ark/libgo2"
 call_chroot "rm -rf /home/ark/linux-rga"
 call_chroot "rm -rf /home/ark/${CHIPSET}_core_builds"
-call_chroot "apt-get remove -y autotools-dev \
+call_chroot "apt remove -y autotools-dev \
   build-essential \
   ccache \
   clang \
@@ -63,8 +63,8 @@ call_chroot "apt-get remove -y autotools-dev \
   rapidjson-dev \
   zlib1g-dev"
 
-call_chroot apt-get -y autoremove
-call_chroot apt-get clean
+call_chroot "apt -y autoremove"
+call_chroot "apt -y clean"
 
 # Ensure additional needed packages are still in place
 while read NEEDED_PACKAGE; do
@@ -102,6 +102,8 @@ call_chroot "ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2.so /usr/lib/aarch64-linu
 call_chroot "ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.${extension} /usr/lib/aarch64-linux-gnu/libSDL2.so"
 call_chroot "ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2.so /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0"
 call_chroot "ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.${extension} /usr/lib/arm-linux-gnueabihf/libSDL2.so"
+# Ensure sdl2-config is linked to the proper version
+call_chroot "ln -sfv /usr/lib/aarch64-linux-gnu/bin/sdl2-config /usr/bin/sdl2-config"
 call_chroot ldconfig
 
 sudo umount -l Arkbuild/home/ark/Arkbuild_ccache

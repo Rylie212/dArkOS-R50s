@@ -13,7 +13,7 @@ elif [[ "$ROOT_FILESYSTEM_FORMAT" == *"ext"* ]]; then
   ROOT_FILESYSTEM_FORMAT_PARAMETERS="-F -L ROOTFS"
   ROOT_FILESYSTEM_MOUNT_OPTIONS="defaults,noatime"
 fi
-DISK="ArkOS_RG353M.img"
+DISK="ArkOS_${UNIT}.img"
 IMAGE_SIZE=7.5G
 SECTOR_SIZE=512
 BUILD_SIZE=54579     # Initial file system size in MB during the build.  Then will be reduced to the DISK_SIZE or below upon completion
@@ -37,8 +37,8 @@ declare -a PARTS=(
   "uboot 16384 24575 $GUID_UBOOT"          # 4MB
   "resource 24576 32767 $GUID_RESOURCE"    # 4MB
   "dArkOS_Fat 32768 235519 $GUID_BASIC_DATA" # 104MB
-  "rootfs 237568 15421439 $GUID_BASIC_DATA" # ~7.7GB
-  "4 15421440 15583871 $GUID_BASIC_DATA"   # 79MB
+  "rootfs 237568 15445614 $GUID_BASIC_DATA" # ~7.7GB
+  "4 15446016 155615 $GUID_BASIC_DATA"   # 79MB
 )
 
 # Create partitions with sgdisk
@@ -52,7 +52,7 @@ sudo partprobe $LOOP_DEV
 sleep 2
 
 # Format partitions where needed
-sudo mkfs.vfat -n dArkOS_Fat "${LOOP_DEV}p3"
+sudo mkfs.vfat -F 32 -n dArkOS_Fat "${LOOP_DEV}p3"
 sudo mkfs.${ROOT_FILESYSTEM_FORMAT} ${ROOT_FILESYSTEM_FORMAT_PARAMETERS} "${LOOP_DEV}p4"
 sudo mkfs.vfat -n ROMS "${LOOP_DEV}p5"
 

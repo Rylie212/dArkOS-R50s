@@ -29,6 +29,10 @@ call_chroot "chown -R ark:ark /opt/kodi/"
 sudo cp kodi/scripts/Kodi.sh Arkbuild/usr/local/bin/
 sudo chmod 777 Arkbuild/usr/local/bin/Kodi.sh
 
+if [[ "$UNIT" != *"503"* ]]; then
+  sudo sed -i '/<res width\="1920" height\="1440" aspect\="4:3"/s//<res width\="1623" height\="1180" aspect\="4:3"/g' Arkbuild/opt/kodi/share/kodi/addons/skin.estuary/addon.xml
+fi
+
 while read KODI_NEEDED_DEV_PACKAGE; do
   if [[ ! "$KODI_NEEDED_DEV_PACKAGE" =~ ^# ]] && [[ "$KODI_NEEDED_DEV_PACKAGE" == *"-dev"* ]]; then
     call_chroot "apt remove -y $KODI_NEEDED_DEV_PACKAGE"

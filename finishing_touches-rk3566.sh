@@ -22,6 +22,8 @@ sudo chroot Arkbuild/ bash -c "chown ark:ark /home/ark/.bashrc"
 # Set the name in the hostname and add it to the hosts file
 if [[ "$UNIT" == *"353"* ]] || [[ "$UNIT" == *"503"* ]]; then
   NAME="rg${UNIT}"
+else
+  NAME="${UNIT}"
 fi
 echo "$NAME" | sudo tee Arkbuild/etc/hostname
 echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hosts
@@ -129,6 +131,11 @@ cat <<EOF | sudo tee Arkbuild/etc/modprobe.d/8821cs.conf
 # Disable power saving
 options 8821cs rtw_power_mgnt=0 rtw_enusbss=0 rtw_ips_mode=0
 EOF
+
+# Add USB DAC Support
+echo -e "Generating 20-usb-alsa.rules udev for usb dac support"
+echo -e "KERNEL==\"controlC[0-9]*\", DRIVERS==\"usb\", SYMLINK=\"snd/controlC7\"" | sudo tee Arkbuild/etc/udev/rules.d/20-usb-alsa.rules
+sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/checknswitchforusbdac.sh &\") | crontab -"
 
 # Copy various other backend tools
 sudo cp -R scripts/.asoundbackup/ Arkbuild/usr/local/bin/

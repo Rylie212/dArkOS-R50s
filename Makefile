@@ -11,6 +11,9 @@ rgb10:
 rg353m:
 	./build_rg353m.sh
 
+rg503:
+	./build_rg503.sh
+
 devenv:
 	./build_devenv.sh
 

@@ -7,6 +7,9 @@ if [ "$UNIT" == "rgb10" ]; then
 elif [[ "$UNIT" == *"353"* ]]; then
   BRANCH="rg351mp"
   DEVICE_CONFIG="rk3566"
+elif [[ "$UNIT" == *"503"* ]]; then
+  BRANCH="ogs"
+  DEVICE_CONFIG="rk3566"
 fi
 call_chroot "cd /home/ark &&
   git clone --recursive https://github.com/christianhaitian/rs97-commander-sdl2.git -b ${BRANCH} &&

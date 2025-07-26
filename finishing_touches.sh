@@ -128,6 +128,11 @@ sudo chmod -R 777 Arkbuild/opt/system/
 # Copy performance scripts
 sudo cp scripts/perf* Arkbuild/usr/local/bin/
 
+# Add USB DAC Support
+echo -e "Generating 20-usb-alsa.rules udev for usb dac support"
+echo -e "KERNEL==\"controlC[0-9]*\", DRIVERS==\"usb\", SYMLINK=\"snd/controlC7\"" | sudo tee Arkbuild/etc/udev/rules.d/20-usb-alsa.rules
+sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/checknswitchforusbdac.sh &\") | crontab -"
+
 # Copy various other backend tools
 sudo cp scripts/checkbrightonboot Arkbuild/usr/local/bin/
 sudo cp scripts/current_* Arkbuild/usr/local/bin/

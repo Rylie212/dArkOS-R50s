@@ -3,7 +3,13 @@
 # Build and install custom kernel from christianhaitian/linux
 KERNEL_SRC=main
 if [ ! -d "$KERNEL_SRC" ]; then
-  git clone --recursive --depth=1 https://github.com/christianhaitian/RG353VKernel.git $KERNEL_SRC
+  if [ "$UNIT" == "503" ]; then
+    git clone --recursive --depth=1 https://github.com/christianhaitian/rg503Kernel.git $KERNEL_SRC
+  elif [[ "$UNIT" == *"353"* ]]; then
+    git clone --recursive --depth=1 https://github.com/christianhaitian/RG353VKernel.git $KERNEL_SRC
+  else
+    git clone --recursive --depth=1 https://github.com/christianhaitian/RG353VKernel.git -b rk2023 $KERNEL_SRC
+  fi
 fi
 cd $KERNEL_SRC
 make ARCH=arm64 rk3566_optimized_linux_defconfig
@@ -29,7 +35,12 @@ sudo mount ${LOOP_DEV}p3 ${mountpoint}
 KERNEL_VERSION=$(basename $(ls Arkbuild/lib/modules))
 sudo cp $KERNEL_SRC/.config Arkbuild/boot/config-${KERNEL_VERSION}
 sudo cp $KERNEL_SRC/arch/arm64/boot/Image ${mountpoint}/
-sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb ${mountpoint}/
+if [ "$UNIT" == "503" ]; then
+  sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/rk3566.dtb ${mountpoint}/${UNIT_DTB}.dtb
+  cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/rk3566.dtb $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb
+else
+  sudo cp $KERNEL_SRC/arch/arm64/boot/dts/rockchip/${UNIT_DTB}.dtb ${mountpoint}/
+fi
 
 # Create uInitrd from generated initramfs
 #sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
@@ -73,11 +84,18 @@ ln -s /opt/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu ./prebui
 cd rk356x-uboot
 cp ../resource.img rk3566_tool/Image/
 ./make.sh rk3566
-
-echo "Flashing uboot.img and resource.img..."
+./make.sh trust
+# Since I don't know how to build a proper loader1.img file
+# We'll cheat and use the one from Anbernic's stock OS
+# More information on how it was obtained is available from
+# here: https://github.com/christianhaitian/rkbin/commit/1302e7af2b34f18496997f52e3cf5a358829db73
+cp ../rkbin/bin/rk35/Anbernic_Stock_loader1.img .
 sudo cp uboot.img ../../Arkbuild/usr/local/bin/uboot.img.jelos
+
+echo "Flashing loader1.img, trust.img, uboot.img and resource.img..."
+sudo dd if=Anbernic_Stock_loader1.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=64 conv=notrunc
+sudo dd if=trust.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=8192 conv=notrunc
 sudo dd if=uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
 sudo dd if=rk3566_tool/Image/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
-#sudo dd if=device/rk3566/uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
-#sudo dd if=device/rk3566/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
+
 cd ../..

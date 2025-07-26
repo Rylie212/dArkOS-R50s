@@ -5,6 +5,8 @@ if [ "$CHIPSET" == "rk3326" ]; then
   branch="master"
 elif [[ "$UNIT" == *"353"* ]]; then
   branch="rg353v"
+elif [[ "$UNIT" == "503" ]]; then
+  branch="rg503"
 fi
 call_chroot "cd /home/ark &&
   git clone https://github.com/christianhaitian/ogage.git -b ${branch} &&

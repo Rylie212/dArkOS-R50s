@@ -54,6 +54,7 @@ source ./build_mvem.sh
 source ./build_ogage.sh
 source ./build_ogacontrols.sh
 source ./build_351files.sh
+source ./build_filemanager.sh
 source ./build_filebrowser.sh
 source ./build_gptokeyb.sh
 source ./build_drmtool.sh

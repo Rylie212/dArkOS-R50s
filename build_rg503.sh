@@ -18,8 +18,9 @@ if [ -f "build.log" ]; then
 fi
 (
 # Set chipset in environment variable
-export CHIPSET=rk3326
-export UNIT=rgb10
+export CHIPSET=rk3566
+export UNIT=503
+export UNIT_DTB=${CHIPSET}-${UNIT}
 
 # Load shared utilities (if any)
 source ./utils.sh
@@ -28,10 +29,9 @@ source ./utils.sh
 source ./prepare.sh
 
 # Step-by-step build process
-source ./setup_partition.sh
-source ./bootstrap_rootfs.sh
-source ./image_setup.sh
-source ./build_kernel.sh
+source ./setup_partition-rk3566.sh
+source ./bootstrap_rootfs-rk3566.sh
+source ./build_kernel-rk3566.sh
 source ./build_deps.sh
 source ./build_sdl2.sh
 source ./build_applewinsa.sh
@@ -56,21 +56,23 @@ source ./build_ogacontrols.sh
 source ./build_351files.sh
 source ./build_filemanager.sh
 source ./build_filebrowser.sh
-source ./build_wpasupplicant.sh
 source ./build_gptokeyb.sh
+source ./build_drmtool.sh
 source ./build_image-viewer.sh
-source ./build_emulationstation.sh
+source ./build_emulationstation-rk3566.sh
 source ./build_linapple.sh
 source ./build_piemu.sh
 source ./build_ti99sim.sh
 source ./build_openmsxsa.sh
+source ./build_dolphinsa.sh
 source ./build_drastic.sh
-source ./finishing_touches.sh
+source ./build_kodi.sh
+source ./finishing_touches-rk3566.sh
 source ./cleanup_filesystem.sh
-source ./write_rootfs.sh
+source ./write_rootfs-rk3566.sh
 source ./clean_mounts.sh
 source ./create_image.sh
 ) 2>&1 | tee -a build.log
 
-echo "RGB10 build completed. Final image is ready."
+echo "RG353M build completed. Final image is ready."
 

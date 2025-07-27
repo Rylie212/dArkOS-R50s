@@ -32,6 +32,7 @@ done <needed_dev_packages.txt
 GCC_VERSION=`sudo chroot ${CHROOT_DIR}/ echo $(gcc --version | head -n 1 | awk '{print $3}' | cut -d'.' -f1)`
 if (( GCC_VERSION > 12 )); then
   install_package $BIT gcc-12
+  install_package $BIT g++-12
   sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10"
   sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20"
   sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --set gcc \"/usr/bin/gcc-12\""

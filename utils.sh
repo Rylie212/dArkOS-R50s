@@ -25,6 +25,13 @@ function verify_action() {
   fi
 }
 
+function get_file() {
+  wget -t 5 -T 30 --no-check-certificate "$@"
+  if [ -f "wget-log" ]; then
+    rm -f wget-log*
+  fi
+}
+
 function call_chroot() {
   sudo chroot Arkbuild bash -c "source /root/.bashrc && $@"
 }

@@ -2447,7 +2447,7 @@
 		<fullname>Ports</fullname>
 		<path>/roms/ports/</path>
 		<extension>.sh .SH</extension>
-		<command>sudo perfmax %GOVERNOR% %ROM%; nice -n -19 /usr/local/bin/AltSDL.sh %ROM%; sudo perfnorm</command>
+		<command>sudo perfmax %GOVERNOR% %ROM%; nice -n -19 %ROM%; sudo perfnorm</command>
 		<platform>pc</platform>
 		<theme>ports</theme>
 	</system>

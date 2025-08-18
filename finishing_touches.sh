@@ -56,7 +56,6 @@ echo -e "# This host address\n127.0.1.1\t${NAME}" | sudo tee -a Arkbuild/etc/hos
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
 sudo cp audio/.asoundrc Arkbuild/home/ark/.asoundrc
 sudo cp audio/.asoundrcbak Arkbuild/home/ark/.asoundrcbak
-sudo cp audio/.asoundrcbt Arkbuild/home/ark/.asoundrcbt
 sudo chroot Arkbuild/ bash -c "chown ark:ark /home/ark/.asoundrc*"
 
 # Sleep script

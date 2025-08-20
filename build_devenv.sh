@@ -3,17 +3,23 @@
 #trap 'exec 2>&4 1>&3' 0 1 2 3
 #exec 1>build.log 2>&1
 #set -e
-if [ -f "builddevenv.log" ]; then
+if [ "$1" == "32" ]; then
+  DEV_LOG="builddevenv32.log"
+else
+  DEV_LOG="builddevenv.log"
+fi
+
+if [ -f "${DEV_LOG}" ]; then
   ext=1
   while true
   do
-    if [ -f "builddevenv.log.${ext}" ]; then
+    if [ -f "${DEV_LOG}.${ext}" ]; then
       let ext=ext+1
-	  continue
-	else
-      mv builddevenv.log builddevenv.log.${ext}
-	  break
-	fi
+      continue
+    else
+      mv "${DEV_LOG}" "${DEV_LOG}.${ext}"
+      break
+    fi
   done
 fi
 (

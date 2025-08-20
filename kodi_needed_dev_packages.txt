@@ -1,4 +1,5 @@
 autopoint
+dav1d
 default-libmysqlclient-dev
 hwdata
 gettext
@@ -18,6 +19,7 @@ libcec-dev
 libcrossguid-dev
 libcurl4-openssl-dev
 libcwiid-dev
+libdav1d-dev
 libdbus-1-dev
 libdisplay-info2
 libdisplay-info-dev
@@ -86,7 +88,7 @@ libxrandr-dev
 libxslt1.1
 libxslt1-dev
 libxt-dev
-openjdk-25-jre
+openjdk-21-jre
 python3-pil
 python3-dev
 rapidjson-dev

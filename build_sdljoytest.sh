@@ -9,7 +9,7 @@ call_chroot "cd /home/ark &&
   make -j$(nproc) &&
   strip gamepad_info map_gamepad_SDL2 test_gamepad_SDL2 &&
   cp gamepad_info /usr/local/bin/sdljoyinfo &&
-  cp map_gamepad /usr/local/bin/sdljoymap &&
+  cp map_gamepad_SDL2 /usr/local/bin/sdljoymap &&
   cp test_gamepad_SDL2 /usr/local/bin/sdljoytest &&
   chmod 777 /usr/local/bin/{sdljoyinfo,sdljoymap,sdljoytest}
   "

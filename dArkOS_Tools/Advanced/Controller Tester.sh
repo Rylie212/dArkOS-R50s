@@ -7,6 +7,16 @@ if [[ ! -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; the
 else
   sudo setfont /usr/share/consolefonts/Lat7-Terminus16.psf.gz
 fi
+if compgen -G "/boot/rk3566*" > /dev/null; then
+  if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+  fi
+  height="20"
+  width="60"
+fi
 sudo chmod 666 /dev/tty1
 export DIALOGRC=/opt/inttools/noshadows.dialogrc
 printf "\033c" > /dev/tty1

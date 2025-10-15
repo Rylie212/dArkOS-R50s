@@ -13,7 +13,16 @@
 # Permission to copy and modify is granted under the GNU GPL v3 license
 #
 # Modified by Rocky5, cleanup, better screen logging and m3u placement.
-
+if compgen -G "/boot/rk3566*" > /dev/null; then
+  if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+  fi
+  height="20"
+  width="60"
+fi
 if test ! -z "$(cat /etc/fstab | grep roms2 | tr -d '\0')"
 then
   directory="roms2"

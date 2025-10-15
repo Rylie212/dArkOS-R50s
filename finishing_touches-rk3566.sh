@@ -177,13 +177,16 @@ if [[ "$UNIT" == "rgb20pro" ]]; then
   sudo chmod 777 Arkbuild/usr/lib/systemd/system-sleep/sleep
   sudo chroot Arkbuild/ bash -c "systemctl enable batt_led"
   sudo chroot Arkbuild/ bash -c "systemctl enable charge_led"
+  sudo chroot Arkbuild/ bash -c "echo low_power > /home/ark/.config/.PowerLEDSleep"
 fi
 
 # Speaker Toggle to set audio output to SPK on boot
 sudo mkdir -p Arkbuild/usr/local/bin
 sudo cp scripts/spktoggle.sh Arkbuild/usr/local/bin/
 sudo chmod 777 Arkbuild/usr/local/bin/spktoggle.sh
-sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/spktoggle.sh &\") | crontab -"
+if [[ "$UNIT" != "rgb20pro" ]]; then
+  sudo chroot Arkbuild/ bash -c "(crontab -l 2>/dev/null; echo \"@reboot /usr/local/bin/spktoggle.sh &\") | crontab -"
+fi
 #sudo cp scripts/audiopath.service Arkbuild/etc/systemd/system/audiopath.service
 sudo cp scripts/audiostate.service Arkbuild/etc/systemd/system/audiostate.service
 #sudo chroot Arkbuild/ bash -c "systemctl enable audiopath"

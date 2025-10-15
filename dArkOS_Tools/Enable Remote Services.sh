@@ -1,4 +1,14 @@
 #!/bin/bash
+if compgen -G "/boot/rk3566*" > /dev/null; then
+  if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+  fi
+  height="20"
+  width="60"
+fi
 sudo systemctl enable NetworkManager-wait-online
 sudo systemctl start NetworkManager-wait-online
 GW=`ip route | awk '/default/ { print $3 }'`

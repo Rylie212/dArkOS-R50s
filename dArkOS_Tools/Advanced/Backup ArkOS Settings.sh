@@ -1,6 +1,15 @@
 #!/bin/bash
 clear
-
+if compgen -G "/boot/rk3566*" > /dev/null; then
+  if test ! -z "$(cat /home/ark/.config/.DEVICE | grep RGB20PRO | tr -d '\0')"
+  then
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold32x16.psf.gz
+  else
+    sudo setfont /usr/share/consolefonts/Lat7-TerminusBold28x14.psf.gz
+  fi
+  height="20"
+  width="60"
+fi
 . /usr/local/bin/buttonmon.sh
 
 printf "\nAre you sure you want to create a backup of your ArkOS settings?\n"

@@ -12,8 +12,8 @@ import time
 
 batt_life = "/sys/class/power_supply/battery/capacity"
 batt_status = "/sys/class/power_supply/battery/status"
-red_led = "/sys/class/leds/low_power/brightness"
-green_led = "/sys/class/leds/battery_full/brightness"
+red_led = "/sys/class/leds/Red LED/brightness"
+green_led = "/sys/class/leds/Green LED/brightness"
 
 while(True):
         with open(batt_status, "r") as file:

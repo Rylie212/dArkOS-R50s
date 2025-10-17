@@ -10,7 +10,7 @@ sudo mkdir -p Arkbuild/opt/dolphin
 sudo mkdir -p Arkbuild/home/ark/.local/share/dolphin-emu
 sudo cp -Ra Arkbuild/home/ark/${CHIPSET}_core_builds/dolphinsa64/dolphin-emu-nogui Arkbuild/opt/dolphin/
 sudo cp -Ra Arkbuild/home/ark/${CHIPSET}_core_builds/dolphin/Data/Sys/* Arkbuild/home/ark/.local/share/dolphin-emu/
-sudo cp -R dolphin/config/ Arkbuild/home/ark/.local/share/dolphin-emu/
+sudo cp -R dolphin/Config/ Arkbuild/home/ark/.local/share/dolphin-emu/
 sudo cp dolphin/scripts/dolphin.sh Arkbuild/usr/local/bin/
 call_chroot "chown -R ark:ark /opt/"
 call_chroot "chown -R ark:ark /home/ark/"

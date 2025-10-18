@@ -13,14 +13,19 @@ call_chroot "cd /home/ark &&
   chmod 777 builds-alt.sh &&
   ./builds-alt.sh retrorun
   "
-call_chroot32 "cd /home/ark &&
-  if [ ! -d ${CHIPSET}_core_builds ]; then git clone https://github.com/christianhaitian/${CHIPSET}_core_builds.git; fi &&
-  cd ${CHIPSET}_core_builds &&
-  chmod 777 builds-alt.sh &&
-  ./builds-alt.sh retrorun
-  "
+if [[ "${BUILD_ARMHF}" == "y" ]]; then
+  call_chroot32 "cd /home/ark &&
+    if [ ! -d ${CHIPSET}_core_builds ]; then git clone https://github.com/christianhaitian/${CHIPSET}_core_builds.git; fi &&
+    cd ${CHIPSET}_core_builds &&
+    chmod 777 builds-alt.sh &&
+    ./builds-alt.sh retrorun
+    "
+fi
+
 sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/retrorun-64/retrorun${ext} Arkbuild/usr/local/bin/retrorun
-sudo cp -a Arkbuild32/home/ark/${CHIPSET}_core_builds/retrorun-32/retrorun32${ext} Arkbuild/usr/local/bin/retrorun32
+if [[ "${BUILD_ARMHF}" == "y" ]]; then
+  sudo cp -a Arkbuild32/home/ark/${CHIPSET}_core_builds/retrorun-32/retrorun32${ext} Arkbuild/usr/local/bin/retrorun32
+fi
 sudo cp retrorun/scripts/*.sh Arkbuild/usr/local/bin/
 sudo cp retrorun/configs/retrorun.cfg.${CHIPSET} Arkbuild/home/ark/.config/retrorun.cfg
 

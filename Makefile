@@ -3,6 +3,7 @@ SHELL := /bin/bash
 DEBIAN_CODE_NAME ?= trixie
 ENABLE_CACHE ?= y
 BUILD_KODI ?= n
+BUILD_ARMHF ?= y
 
 export DEBIAN_CODE_NAME
 export ENABLE_CACHE

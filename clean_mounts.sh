@@ -2,7 +2,9 @@
 
 # Unmount chroot binds
 remove_arkbuild
-remove_arkbuild32
+if [[ "${BUILD_ARMHF}" == "y" ]]; then
+  remove_arkbuild32
+fi
 if grep -qs "$PWD/Arkbuild_ccache" /proc/mounts; then
   sudo umount $PWD/Arkbuild_ccache
 fi

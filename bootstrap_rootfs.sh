@@ -28,10 +28,12 @@ echo "exit 101" | sudo tee Arkbuild/usr/sbin/policy-rc.d > /dev/null
 sudo chmod 0755 Arkbuild/usr/sbin/policy-rc.d
 sudo chroot Arkbuild/ mount -t proc proc /proc
 
-# Enable armhf architecture and update
-sudo chroot Arkbuild/ dpkg --add-architecture armhf
-sudo chroot Arkbuild/ eatmydata apt-get -y update
-sudo chroot Arkbuild/ eatmydata apt-get -y install libc6:armhf liblzma5:armhf libasound2t64:armhf libfreetype6:armhf libxkbcommon-x11-0:armhf libudev1:armhf libudev0:armhf libgbm1:armhf libstdc++6:armhf
+if [[ "${BUILD_ARMHF}" == "y" ]]; then
+  # Enable armhf architecture and update
+  sudo chroot Arkbuild/ dpkg --add-architecture armhf
+  sudo chroot Arkbuild/ eatmydata apt-get -y update
+  sudo chroot Arkbuild/ eatmydata apt-get -y install libc6:armhf liblzma5:armhf libasound2t64:armhf libfreetype6:armhf libxkbcommon-x11-0:armhf libudev1:armhf libudev0:armhf libgbm1:armhf libstdc++6:armhf
+fi
 
 # Install base runtime packages
 sudo chroot Arkbuild/ eatmydata apt-get install -y btrfs-progs initramfs-tools sudo evtest network-manager systemd-sysv locales locales-all ssh dosfstools fluidsynth

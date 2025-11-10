@@ -19,7 +19,5 @@ else
 	sudo tar -czpf Arkbuild_package_cache/${CHIPSET}/ppsspp-2021.tar.gz Arkbuild/opt/ppsspp-2021/
 fi
 sudo cp ppsspp/gamecontrollerdb.txt.${UNIT} Arkbuild/opt/ppsspp-2021/assets/gamecontrollerdb.txt
-sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/ppsspp-2021/LICENSE.TXT Arkbuild/opt/ppsspp-2021/
-sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/ppsspp-2021/build/PPSSPPSDL Arkbuild/opt/ppsspp-2021/
 call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/ppsspp-2021/PPSSPPSDL

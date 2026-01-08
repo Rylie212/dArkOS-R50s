@@ -1,10 +1,6 @@
 #!/bin/bash
 
-if [ -f "/opt/system/Advanced/Switch to main SD for Roms.sh" ]; then
-  directory="roms2"
-else
-  directory="roms"
-fi
+directory=$(dirname "$1" | cut -d "/" -f2)
 
 if [[ ${1,,} == *"scan_for_new_games.easyrpg"* ]]; then
   printf "\033c" >> /dev/tty1

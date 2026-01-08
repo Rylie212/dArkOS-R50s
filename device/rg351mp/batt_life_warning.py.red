@@ -25,11 +25,6 @@ while(True):
                         f = open(pwr_led, "w")
                         f.write("0")
                         f.close()
-                        time.sleep(10)
-                else:
-                        f = open(pwr_led, "w")
-                        f.write("1")
-                        f.close()
                         time.sleep(30)
                 else:
                         time.sleep(30)

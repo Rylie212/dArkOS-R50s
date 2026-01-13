@@ -9,11 +9,12 @@
 USERS=$(who | wc -l)
 HOST=$(hostname)
 UPTIME=$(uptime -p)
-LOAD=$(cut -d' ' -f1-3 /proc/loadavg)
+LOADAVG="$(</proc/loadavg)"
+LOAD=$(echo "$LOADAVG" | cut -d' ' -f1-3)
 CPU_MODEL=$(awk -F: '/model name|Hardware/ {print $2; exit}' /proc/cpuinfo | xargs)
 
 # load, srcds, screen pid
-SYSTEM_LOAD="$(awk '{ print $1,$2,$3 }' /proc/loadavg)"
+SYSTEM_LOAD="$(echo "$LOADAVG" | awk '{ print $1,$2,$3 }')"
 # get number of CPU cores
 CPU_CORES=$(nproc)
 # read individual load numbers into variables
@@ -41,9 +42,9 @@ BATTERY_TEMP=$((BATTERY_TEMP_RAW / 1000))
 # battery type
 BATTERY_TYPE=$(</sys/class/thermal/thermal_zone0/type)
 # battery capacity
-BATTERY_CAPACITY="$(cat /sys/class/power_supply/battery/capacity)"
+BATTERY_CAPACITY="$(</sys/class/power_supply/battery/capacity)"
 # battery status
-BATTERY_STATUS="$(cat /sys/class/power_supply/battery/status)"
+BATTERY_STATUS="$(</sys/class/power_supply/battery/status)"
 # battery voltage
 BATTERY_VOLTAGE="$(awk '{printf "%.2f", $1/1000000}' /sys/class/power_supply/battery/voltage_now)"
 # battery current
@@ -51,13 +52,16 @@ BATTERY_CURRENT="$(awk '{printf "%.2f", $1/1000000}' /sys/class/power_supply/bat
 
 ################################################################################
 
+# get meminfo
+MEMINFO="$(</proc/meminfo)"
+
 # read RAM
-MEM_TOTAL=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
-MEM_AVAILABLE=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
+MEM_TOTAL=$(echo "$MEMINFO" | awk '/MemTotal/ {print $2}')
+MEM_AVAILABLE=$(echo "$MEMINFO" | awk '/MemAvailable/ {print $2}')
 
 # read swap
-SWAP_TOTAL=$(awk '/SwapTotal/ {print $2}' /proc/meminfo)
-SWAP_FREE=$(awk '/SwapFree/ {print $2}' /proc/meminfo)
+SWAP_TOTAL=$(echo "$MEMINFO" | awk '/SwapTotal/ {print $2}')
+SWAP_FREE=$(echo "$MEMINFO" | awk '/SwapFree/ {print $2}')
 SWAP_USED=$((SWAP_TOTAL - SWAP_FREE))
 
 # RAM used
@@ -88,24 +92,34 @@ IP_ADDRESS=$(hostname -I | awk '{print $1}')
 
 ################################################################################
 
-# system space /
-SPACE_NAME=$(df -h / | awk 'NR==2 {print $1" - "$NF}')
-SPACE_TOTAL=$(df -h / | awk 'NR==2 {print $2}')
-SPACE_USED=$(df -h / | awk 'NR==2 {print $3}')
-SPACE_FREE=$(df -h / | awk 'NR==2 {print $4}')
-SPACE_PCT=$(df -h / | awk 'NR==2 {print $5}')
-# roms space /roms
-ROMS_SPACE_NAME=$(df -h /roms | awk 'NR==2 {print $1" - "$NF}')
-ROMS_SPACE_TOTAL=$(df -h /roms | awk 'NR==2 {print $2}')
-ROMS_SPACE_USED=$(df -h /roms | awk 'NR==2 {print $3}')
-ROMS_SPACE_FREE=$(df -h /roms | awk 'NR==2 {print $4}')
-ROMS_SPACE_PCT=$(df -h /roms | awk 'NR==2 {print $5}')
-# roms2 space /roms2
-ROMS2_SPACE_NAME=$(df -h /roms2 | awk 'NR==2 {print $1" - "$NF}')
-ROMS2_SPACE_TOTAL=$(df -h /roms2 | awk 'NR==2 {print $2}')
-ROMS2_SPACE_USED=$(df -h /roms2 | awk 'NR==2 {print $3}')
-ROMS2_SPACE_FREE=$(df -h /roms2 | awk 'NR==2 {print $4}')
-ROMS2_SPACE_PCT=$(df -h /roms2 | awk 'NR==2 {print $5}')
+# function: read df once, extract fields
+read_df() {
+  df -h "$1" | awk 'NR==2 {
+    printf "%s|%s|%s|%s|%s|%s\n", $1, $NF, $2, $3, $4, $5
+  }'
+}
+
+# /
+IFS='|' read FS MOUNT TOTAL USED FREE PCT <<<"$(read_df /)"
+SPACE_NAME="$FS - $MOUNT"
+SPACE_TOTAL="$TOTAL"
+SPACE_USED="$USED"
+SPACE_FREE="$FREE"
+SPACE_PCT="$PCT"
+# /roms
+IFS='|' read FS MOUNT TOTAL USED FREE PCT <<<"$(read_df /roms)"
+ROMS_SPACE_NAME="$FS - $MOUNT"
+ROMS_SPACE_TOTAL="$TOTAL"
+ROMS_SPACE_USED="$USED"
+ROMS_SPACE_FREE="$FREE"
+ROMS_SPACE_PCT="$PCT"
+# /roms2
+IFS='|' read FS MOUNT TOTAL USED FREE PCT <<<"$(read_df /roms2)"
+ROMS2_SPACE_NAME="$FS - $MOUNT"
+ROMS2_SPACE_TOTAL="$TOTAL"
+ROMS2_SPACE_USED="$USED"
+ROMS2_SPACE_FREE="$FREE"
+ROMS2_SPACE_PCT="$PCT"
 
 ################################################################################
 

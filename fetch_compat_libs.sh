@@ -80,14 +80,24 @@ install_lib \
     "http://security.debian.org/debian-security/pool/updates/main/f/ffmpeg/libswresample3_4.3.9-0+deb11u2_arm64.deb" \
     "libswresample.so.3" "libswresample.so.3"
 
+# libavformat58 (FFmpeg 4.3.9, Debian 11 security)
+install_lib \
+    "http://security.debian.org/debian-security/pool/updates/main/f/ffmpeg/libavformat58_4.3.9-0+deb11u2_arm64.deb" \
+    "libavformat.so.58" "libavformat.so.58"
+
+# libswscale5 (FFmpeg 4.3.9, Debian 11 security)
+install_lib \
+    "http://security.debian.org/debian-security/pool/updates/main/f/ffmpeg/libswscale5_4.3.9-0+deb11u2_arm64.deb" \
+    "libswscale.so.5" "libswscale.so.5"
+
 # libvpx6 (1.9.0, Debian 11 security)
 install_lib \
-    "http://security.debian.org/debian-security/pool/updates/main/l/libvpx/libvpx6_1.9.0-1+deb11u4_arm64.deb" \
+    "http://security.debian.org/debian-security/pool/updates/main/libv/libvpx/libvpx6_1.9.0-1+deb11u4_arm64.deb" \
     "libvpx.so.6" "libvpx.so.6"
 
 # libwebp6 (0.6.1, Debian 11 security)
 install_lib \
-    "http://security.debian.org/debian-security/pool/updates/main/l/libwebp/libwebp6_0.6.1-2.1+deb11u2_arm64.deb" \
+    "http://ftp.debian.org/debian/pool/main/libw/libwebp/libwebp6_0.6.1-2.1+deb11u2_arm64.deb" \
     "libwebp.so.6" "libwebp.so.6"
 
 # libaom0 (1.0.0, Debian 11 security)

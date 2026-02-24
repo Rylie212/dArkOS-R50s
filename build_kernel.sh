@@ -14,7 +14,11 @@ else
   KERNEL_SRC="rg351"
   DEF_CONFIG="rg351p_tweaked_defconfig"
   SCREEN_ROTATION="0"
-  KERNEL_DTB="${CHIPSET}-${UNIT}-linux.dtb"
+  if [ "$UNIT" == "r50s" ]; then
+    KERNEL_DTB="${CHIPSET}-rg351mp-linux.dtb"
+  else
+    KERNEL_DTB="${CHIPSET}-${UNIT}-linux.dtb"
+  fi
 fi
 if [ ! -d "$KERNEL_SRC" ]; then
   git clone --recursive --depth=1 https://github.com/christianhaitian/linux.git -b $KERNEL_SRC $KERNEL_SRC

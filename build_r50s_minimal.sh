@@ -1,0 +1,53 @@
+#!/bin/bash
+#exec 3>&1 4>&2
+#trap 'exec 2>&4 1>&3' 0 1 2 3
+#exec 1>build.log 2>&1
+#set -e
+if [ -f "build.log" ]; then
+  ext=1
+  while true
+  do
+    if [ -f "build.log.${ext}" ]; then
+      let ext=ext+1
+	  continue
+	else
+      mv build.log build.log.${ext}
+	  break
+	fi
+  done
+fi
+(
+# Set chipset in environment variable
+export CHIPSET=rk3326
+export UNIT=r50s
+
+# Load shared utilities (if any)
+source ./utils.sh
+
+# Let's make sure necessary tools are available
+source ./prepare.sh
+
+# Step-by-step build process (minimal profile)
+source ./setup_partition.sh
+source ./bootstrap_rootfs.sh
+source ./image_setup.sh
+source ./build_kernel.sh
+source ./build_deps.sh
+source ./build_sdl2.sh
+source ./build_retroarch.sh
+source ./build_ppssppsa.sh
+source ./build_351files.sh
+source ./build_filemanager.sh
+source ./build_filebrowser.sh
+source ./build_gptokeyb.sh
+source ./build_image-viewer.sh
+source ./build_emulationstation.sh
+source ./finishing_touches.sh
+source ./cleanup_filesystem.sh
+source ./write_rootfs.sh
+source ./clean_mounts.sh
+source ./create_image.sh
+) 2>&1 | tee -a build.log
+
+echo "R50S minimal build completed. Final image is ready."
+

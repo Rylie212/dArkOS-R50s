@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create boot.ini
-if [ "$UNIT" == "rg351mp" ]; then
+if [ "$UNIT" == "rg351mp" ] || [ "$UNIT" == "r50s" ]; then
   INITRD_LOADERADDRESS="0x01100000"
 else
   INITRD_LOADERADDRESS="0x04000000"
